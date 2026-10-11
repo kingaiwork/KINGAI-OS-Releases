@@ -3,6 +3,12 @@ on:
   release:
     types: [published, edited]
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/verify-release.mjs'
+      - 'tests/release.test.mjs'
+      - '.github/workflows/release-integrity.yml'
   schedule:
     - cron: '13 9 * * 1'
 
