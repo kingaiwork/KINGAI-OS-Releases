@@ -1,0 +1,35 @@
+name: KINGAI OS Release Integrity
+on:
+  release:
+    types: [published, edited]
+  workflow_dispatch:
+  schedule:
+    - cron: '13 9 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kingai-os-release-integrity-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout immutable action
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Set up supported Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Test release invariants without external resources
+        run: node --test tests/release.test.mjs
+      - name: Validate published release and bounded SHA-256 sidecars
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          KINGAI_RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: node scripts/verify-release.mjs
