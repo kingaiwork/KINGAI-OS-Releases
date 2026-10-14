@@ -47,3 +47,20 @@ test('reject checksum payload that does not match published ISO digest',async()=
   const errors=await verifySidecars(release,fetcher);
   assert.ok(errors.some(x=>x.includes('checksum disagrees')));
 });
+
+test('reject canonical-prefix URL substitution and unsafe filenames',()=>{
+  const {release}=fixture();
+  release.assets[0].browser_download_url += '.substitute';
+  assert.ok(auditReleaseMeta(release).errors.some(x=>x.includes('exact canonical filename')));
+  const other=fixture().release;
+  other.assets[0].name='../wrong.iso';
+  assert.ok(auditReleaseMeta(other).errors.some(x=>x.includes('invalid release asset filename')));
+});
+
+test('reject oversized streamed sidecars before buffering unbounded data',async()=>{
+  const {release}=fixture();
+  const huge=new Uint8Array(5000).fill(97);
+  const fetcher=async()=>({ok:true,body:new ReadableStream({start(controller){controller.enqueue(huge);controller.close();}})});
+  const errors=await verifySidecars(release,fetcher);
+  assert.ok(errors.some(x=>x.includes('sidecar exceeds bounded length')),errors.join('; '));
+});

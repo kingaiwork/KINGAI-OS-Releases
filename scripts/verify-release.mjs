@@ -24,8 +24,12 @@ export function auditReleaseMeta(release){
     else byName.set(a.name,a);
     if(a?.state!=='uploaded')errors.push('asset not fully uploaded: '+(a?.name||'?'));
     if(!digestRE.test(String(a?.digest||'')))errors.push('missing GitHub SHA-256 digest: '+(a?.name||'?'));
-    const expected='https://github.com/'+owner+'/'+name+'/releases/download/'+release.tag_name+'/';
-    if(!String(a?.browser_download_url||'').startsWith(expected))errors.push('asset URL outside canonical release: '+(a?.name||'?'));
+    // Match the exact asset URL, not just a canonical-looking prefix.
+    // This avoids accepting /file.iso.evil, query-string variants, or path traversal.
+    const safeFilename=typeof a?.name==='string' && /^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(a.name) && !a.name.includes('..');
+    if(!safeFilename)errors.push('invalid release asset filename: '+(a?.name||'?'));
+    const expected='https://github.com/'+owner+'/'+name+'/releases/download/'+release.tag_name+'/'+(safeFilename?a.name:'');
+    if(!safeFilename || String(a?.browser_download_url||'')!==expected)errors.push('asset URL does not match exact canonical filename: '+(a?.name||'?'));
   }
   const isos=assets.filter(a=>/\.iso$/i.test(a.name||''));
   if(!isos.some(a=>/Desktop/i.test(a.name)))errors.push('Desktop ISO absent');
@@ -57,9 +61,32 @@ export async function verifySidecars(release,fetcher=fetch){
     try{
       const response=await fetcher(sidecar.browser_download_url);
       if(!response.ok)throw new Error('HTTP '+response.status);
-      const text=await response.text();
-      if(text.length>4096)throw new Error('sidecar exceeds bounded length');
-      const actualHash=createHash('sha256').update(text).digest('hex');
+      // Bound the bytes before buffering, not merely the character count after download.
+      const chunks=[];
+      let length=0;
+      if(response.body && typeof response.body.getReader==='function'){
+        const reader=response.body.getReader();
+        try{
+          while(true){
+            const {done,value}=await reader.read();
+            if(done)break;
+            length+=value.byteLength;
+            if(length>4096)throw new Error('sidecar exceeds bounded length');
+            chunks.push(Buffer.from(value));
+          }
+        }finally{
+          await reader.cancel().catch(()=>{});
+          reader.releaseLock();
+        }
+      }else{
+        // Lightweight test fetchers may only implement response.text().
+        const fallback=Buffer.from(await response.text(),'utf8');
+        if(fallback.byteLength>4096)throw new Error('sidecar exceeds bounded length');
+        chunks.push(fallback);
+      }
+      const payload=Buffer.concat(chunks);
+      const text=payload.toString('utf8');
+      const actualHash=createHash('sha256').update(payload).digest('hex');
       const publishedHash=String(sidecar.digest||'').replace(/^sha256:/i,'').toLowerCase();
       if(actualHash!==publishedHash)errors.push('sidecar asset differs from GitHub SHA-256 digest: '+sidecar.name);
       const checksum=sidecarDigest(text,iso.name);
