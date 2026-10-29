@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "1.0.0",
+  "updated": "2026-10-29",
+  "brand": "KINGAI OS",
+  "tagline": "Your Linux. Your rules. AI-ready when you choose.",
+  "officialSite": "https://os.kingai.work/",
+  "sourceOfTruth": "https://github.com/kingaiwork/KINGAI-OS-Releases/releases",
+  "claimsPolicy": "Only editions with releaseStatus=developer-preview have official downloadable images; planned features are not shipped.",
+  "editions": [
+    {
+      "id": "desktop",
+      "name": "KINGAI OS Desktop",
+      "nameZh": "桌面版",
+      "target": "Personal computing, developers and optional local AI tools",
+      "releaseStatus": "developer-preview",
+      "version": "0.1.0-dev",
+      "architecture": [
+        "amd64"
+      ],
+      "desktop": "KDE Plasma 6 (published preview description)",
+      "image": "KINGAI-OS-Desktop-0.1.0-dev-amd64.iso",
+      "sha256": "3a53c03566a1d72595a5340bdeb3eeec815342ee032fac8e2d4a4a1f9cf1643d",
+      "download": "https://github.com/kingaiwork/KINGAI-OS-Releases/releases/download/v0.1.0-dev/KINGAI-OS-Desktop-0.1.0-dev-amd64.iso",
+      "notes": "Developer preview; not certified for primary workstations."
+    },
+    {
+      "id": "server",
+      "name": "KINGAI OS Server",
+      "nameZh": "服务器版",
+      "target": "Headless Linux servers, VMs, containers and user-selected agent runtimes",
+      "releaseStatus": "developer-preview",
+      "version": "0.1.0-dev",
+      "architecture": [
+        "amd64"
+      ],
+      "image": "KINGAI-OS-Server-0.1.0-dev-amd64.iso",
+      "sha256": "433bb0dd2b07f8c7579296626d706c662d42938b7b8366983799d50670abb85d",
+      "download": "https://github.com/kingaiwork/KINGAI-OS-Releases/releases/download/v0.1.0-dev/KINGAI-OS-Server-0.1.0-dev-amd64.iso",
+      "notes": "Development server preview; not certified for production."
+    },
+    {
+      "id": "edge",
+      "name": "KINGAI OS Edge",
+      "nameZh": "边缘设备版",
+      "target": "Small-footprint managed appliances, gateways and offline-first edge nodes",
+      "releaseStatus": "planned",
+      "version": null,
+      "architecture": [
+        "amd64",
+        "arm64 (target)"
+      ],
+      "image": null,
+      "download": null,
+      "notes": "Not released. No hardware, OTA, fleet management or ARM64 support is claimed."
+    },
+    {
+      "id": "ai-workstation",
+      "name": "KINGAI OS AI Workstation",
+      "nameZh": "AI 工作站版",
+      "target": "User-controlled local model development and GPU-enabled AI workflows",
+      "releaseStatus": "planned",
+      "version": null,
+      "architecture": [
+        "amd64"
+      ],
+      "image": null,
+      "download": null,
+      "notes": "Not released. GPU/driver support and preinstalled model runtimes are not claimed."
+    }
+  ],
+  "policies": {
+    "privacy": "No mandatory KINGAI account, bundled agents, models or hidden telemetry are advertised for current previews.",
+    "security": "Hash comparison is not a signature or proof of secure build.",
+    "release": "No planned edition may be displayed as downloadable or stable without real signed artifact and validation evidence."
+  }
+}
