@@ -40,6 +40,14 @@ sha256sum -c KINGAI-OS-Desktop-0.1.0-dev-amd64.iso.sha256
 
 Replace Desktop with Server as needed. See [verification and virtualization instructions](docs/INSTALLATION.md). SHA-256 is an integrity comparison, **not** a code signature, build provenance proof or stability certification.
 
+## 下载与安装的真实验收状态 / Actual download & install status
+
+The official downloadable Desktop and Server `v0.1.0-dev` assets are confirmed in the public GitHub Release metadata. Our read-only CI checks the exact release assets, SHA-256 companions and download URL responses, but it does **not** download the full multi-gigabyte ISO, boot the published older assets or prove installation on real hardware.
+
+**Separate internal Debian 13 AMD64 experiments:** all four edition profiles compiled into real experimental ISOs and independently booted into Linux/systemd in both BIOS and UEFI QEMU VMs. These are **not** the same published `v0.1.0-dev` binaries; their hashes do not identify publicly downloadable files. Full installed-disk reboot, signed distribution, verified updates/rollback, and physical-hardware compatibility remain release blockers.
+
+See [the current bilingual download/install acceptance ledger](docs/DOWNLOAD_INSTALL_STATUS_20261029.md), which clearly separates published ISO links from internal CI testing. **Do not install a developer preview over an important disk or a production server.**
+
 ## What ships in the preview?
 
 Per the [published release notes](https://github.com/kingaiwork/KINGAI-OS-Releases/releases/tag/v0.1.0-dev):
