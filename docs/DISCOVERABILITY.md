@@ -7,7 +7,7 @@
 - Organization / umbrella: **KINGAI.WORK** (company/ecosystem)
 - Product: **KINGAI OS** (Linux operating-system family; not an autonomous cloud service)
 - Edition names: **KINGAI OS Desktop**, **KINGAI OS Server**, **KINGAI OS Edge**, **KINGAI OS AI Workstation**
-- Official authority: `https://os.kingai.work/`
+- Official authority: `https://kingai.work/os/`
 - Release authority: `https://github.com/kingaiwork/KINGAI-OS-Releases/releases`
 - English and Chinese headings should share the exact product names and visibly different release states.
 
