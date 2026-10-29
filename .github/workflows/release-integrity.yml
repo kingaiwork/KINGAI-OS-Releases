@@ -50,6 +50,10 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           KINGAI_RELEASE_TAG: ${{ github.event.release.tag_name }}
         run: node scripts/verify-release.mjs
+      - name: Confirm published preview ISO download URLs answer HTTP HEAD
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/check-download-head.mjs
       - name: Alert on any published non-prerelease without approved GA process
         env:
           GITHUB_TOKEN: ${{ github.token }}
