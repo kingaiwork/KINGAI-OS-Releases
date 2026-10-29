@@ -17,6 +17,15 @@ The sidecars beside the two published ISO assets are the only release-scoped off
 - [Desktop SHA-256 sidecar](https://github.com/kingaiwork/KINGAI-OS-Releases/releases/download/v0.1.0-dev/KINGAI-OS-Desktop-0.1.0-dev-amd64.iso.sha256)
 - [Server SHA-256 sidecar](https://github.com/kingaiwork/KINGAI-OS-Releases/releases/download/v0.1.0-dev/KINGAI-OS-Server-0.1.0-dev-amd64.iso.sha256)
 
+## 已验证完整下载与实际 ISO 字节 / Full-byte downloadable previews verified
+
+On 2026-10-29, independent GitHub-hosted ephemeral CI successfully downloaded **both complete published v0.1.0-dev ISO files**, downloaded the matching SHA256 companions, calculated `sha256sum` over all actual bytes, compared against the authoritative public catalog, and opened each ISO filesystem using xorriso:
+
+- **Desktop**: 2,139,549,696 bytes, SHA256 `3a53c03566a1d72595a5340bdeb3eeec815342ee032fac8e2d4a4a1f9cf1643d`
+- **Server**: 1,249,024,000 bytes, SHA256 `433bb0dd2b07f8c7579296626d706c662d42938b7b8366983799d50670abb85d`
+
+Actual success log: https://github.com/kingaiwork/KINGAI-OS-Releases/actions/runs/40950066508. The repeatable source is `.github/workflows/verify-published-preview-full-download.yml`. It does **not** prove either published image boots, installs to disk, is free of malware, passes real-hardware testing, or constitutes signed/production-ready GA. Live availability could change after this observation.
+
 ## 内部实验结果并不等于公开发行 / Internal test evidence ≠ public release
 
 A later set of **four actual Debian 13 AMD64 experimental ISOs** was successfully compiled and hashed on disposable, hosted CI runners. These images were ephemeral. They are **not** the October 6 `v0.1.0-dev` public assets, nor were the new images archived as publicly retrievable downloads.
