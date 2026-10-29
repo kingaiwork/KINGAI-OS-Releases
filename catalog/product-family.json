@@ -3,7 +3,7 @@
   "updated": "2026-10-29",
   "brand": "KINGAI OS",
   "tagline": "Your Linux. Your rules. AI-ready when you choose.",
-  "officialSite": "https://os.kingai.work/",
+  "officialSite": "https://kingai.work/os/",
   "sourceOfTruth": "https://github.com/kingaiwork/KINGAI-OS-Releases/releases",
   "claimsPolicy": "Only editions with releaseStatus=developer-preview have official downloadable images; planned features are not shipped.",
   "editions": [
