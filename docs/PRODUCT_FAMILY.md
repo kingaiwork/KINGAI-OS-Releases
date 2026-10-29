@@ -64,4 +64,4 @@ Do not turn targets into advertised minimum system requirements until validation
 3. Commercial services may include image customization, enterprise deployment, update/fleet management, security response and SLA-backed support **when delivery capability exists and contracts are established**.
 4. No security/privacy certification, guaranteed device support or unlimited uptime is represented by this roadmap.
 
-**Primary links**: [Official site](https://os.kingai.work/) · [Verified downloadable previews](https://github.com/kingaiwork/KINGAI-OS-Releases/releases) · [Installation & verification](INSTALLATION.md) · [Engineering and commercial gates](RELEASE_ENGINEERING.md)
+**Primary links**: [Official site](https://kingai.work/os/) · [Verified downloadable previews](https://github.com/kingaiwork/KINGAI-OS-Releases/releases) · [Installation & verification](INSTALLATION.md) · [Engineering and commercial gates](RELEASE_ENGINEERING.md)
