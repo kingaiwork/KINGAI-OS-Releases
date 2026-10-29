@@ -1,52 +1,96 @@
-# KINGAI OS — Public Developer Preview Releases
+# KINGAI OS — Linux for Desktop, Server, Edge & AI Workstation
 
-This repository publishes the **official public installation images and SHA-256 checksums** for KINGAI OS Desktop and Server.
+**中文 / English** · General-purpose Linux · User-controlled · Optional local AI workloads · No mandatory KINGAI account
 
-- Official OS site: https://os.kingai.work/
-- KING AI product family: https://www.kingai.work/
-- Download releases and checksum sidecars: https://github.com/kingaiwork/KINGAI-OS-Releases/releases
-- Public product directory and visual/official-link guide: https://github.com/kingaiwork/KINGAIASE-public/blob/main/ECOSYSTEM-UI-AND-LINKS.md
+[Official website](https://os.kingai.work/) · [Download developer previews](https://github.com/kingaiwork/KINGAI-OS-Releases/releases) · [Four-edition product family](docs/PRODUCT_FAMILY.md) · [Install & verify](docs/INSTALLATION.md) · [Security](SECURITY.md)
 
-## At a glance
+> **Release status · 2026-10-29:** Only **KINGAI OS Desktop** and **KINGAI OS Server** currently have official downloadable images: **v0.1.0-dev (amd64, Developer Preview)**. **KINGAI OS Edge** and **KINGAI OS AI Workstation** are product roadmaps and **have no published ISO**. No edition is certified as generally available or production-ready.
 
-- **Product:** KINGAI OS — Desktop and Server editions
-- **Architecture:** amd64
-- **Current release:** v0.1.0-dev (prerelease, published 2026-10-06)
-- **Assets per edition:** ISO installation image + `.sha256` checksum sidecar
-- **Status:** Developer Preview — not a generally available stable release
-- **Official site:** https://os.kingai.work/
+## What is KINGAI OS?
 
-## Current public preview
+KINGAI OS is a general-purpose Linux operating-system project for individuals, developers and infrastructure operators. Its goal is to preserve the familiar Linux ecosystem while providing a clean desktop, lightweight servers, and **optional**, user-selected tools for containers, local models and AI-agent development. KINGAI is the OS brand; it does **not** silently bundle KINGAI cloud accounts, agents, model subscriptions or hidden telemetry.
 
-**v0.1.0-dev** (prerelease, published 2026-10-06) provides amd64 Desktop and Server ISO assets, each with a `.sha256` checksum sidecar.
+**KINGAI OS 不等于强制集成 AI 的封闭系统。** 用户可把它当作普通 Linux 桌面或服务器使用，也可以自行选择容器、开发工具、本地模型及 AI 智能体运行环境。KINGAI.WORK 的云业务属于独立、可选的服务体系。
 
-These are **Developer Preview** images, not generally available stable releases. Check the release notes and known limitations, verify SHA-256 before use and test in a virtual machine or disposable environment before installing on primary hardware.
+## Four editions · 四大产品线
 
-## Download and verify
+| Product / 产品 | Use case / 适用场景 | Availability / 当前状态 | Architecture |
+| --- | --- | --- | --- |
+| **KINGAI OS Desktop / 桌面版** | Everyday computing, KDE desktop, developers and optional AI tools | **Developer Preview**: v0.1.0-dev ISO | amd64 |
+| **KINGAI OS Server / 服务器版** | Headless servers, VMs, SSH, containers and user-installed runtimes | **Developer Preview**: v0.1.0-dev ISO | amd64 |
+| **KINGAI OS Edge / 边缘设备版** | Gateways, edge nodes, offline-first appliances and fleet operations | **Planned — no ISO** | amd64 + arm64 targets, unverified |
+| **KINGAI OS AI Workstation / AI 工作站版** | Local model research, opt-in GPU inference, agent workspaces | **Planned — no ISO** | amd64 target, unverified |
 
-1. Download the ISO for your edition (Desktop or Server) and its `.sha256` sidecar from the [releases page](https://github.com/kingaiwork/KINGAI-OS-Releases/releases).
-2. Verify the checksum before installing:
-   - Linux: `sha256sum -c <image>.sha256`
-   - macOS: `shasum -a 256 <image>` and compare with the sidecar file
-3. Read the release notes and known limitations for that version.
-4. Test in a virtual machine or disposable environment first.
+See [PRODUCT_FAMILY.md](docs/PRODUCT_FAMILY.md) for architecture, roadmap and release gates, or [machine-readable edition metadata](catalog/product-family.json) for verified artifact names and statuses.
 
-## 中文摘要
+## Available downloads · 当前可下载版本
 
-本仓发布 KINGAI OS 桌面版与服务器版的官方公开安装镜像及 SHA-256 校验文件。当前版本 v0.1.0-dev 为开发者预览版（2026-10-06 发布，amd64），不是稳定正式版：安装前请先核对校验值，并先在虚拟机或闲置设备上试用。官网：https://os.kingai.work/
+**[KINGAI OS v0.1.0-dev release](https://github.com/kingaiwork/KINGAI-OS-Releases/releases/tag/v0.1.0-dev)** — published 2026-10-06, prerelease.
 
-## FAQ
+| Edition | ISO download | Matching SHA-256 |
+| --- | --- | --- |
+| Desktop | [Download Desktop 0.1.0-dev amd64](https://github.com/kingaiwork/KINGAI-OS-Releases/releases/download/v0.1.0-dev/KINGAI-OS-Desktop-0.1.0-dev-amd64.iso) | [Checksum](https://github.com/kingaiwork/KINGAI-OS-Releases/releases/download/v0.1.0-dev/KINGAI-OS-Desktop-0.1.0-dev-amd64.iso.sha256) |
+| Server | [Download Server 0.1.0-dev amd64](https://github.com/kingaiwork/KINGAI-OS-Releases/releases/download/v0.1.0-dev/KINGAI-OS-Server-0.1.0-dev-amd64.iso) | [Checksum](https://github.com/kingaiwork/KINGAI-OS-Releases/releases/download/v0.1.0-dev/KINGAI-OS-Server-0.1.0-dev-amd64.iso.sha256) |
 
-**Is KINGAI OS stable enough for my main computer?**
-No. The current public images are a Developer Preview. Install on primary hardware only after testing in a virtual machine or on a spare device.
+On Linux, place the ISO next to its `.sha256` file:
 
-**What is published in this repository?**
-Public binaries and checksums only. Source authority, signing secrets, build infrastructure and operational credentials are not published here.
+```bash
+sha256sum -c KINGAI-OS-Desktop-0.1.0-dev-amd64.iso.sha256
+```
 
-**Where is the official product site?**
-https://os.kingai.work/ — the KINGAI OS product family also appears at https://www.kingai.work/.
+Replace Desktop with Server as needed. See [verification and virtualization instructions](docs/INSTALLATION.md). SHA-256 is an integrity comparison, **not** a code signature, build provenance proof or stability certification.
 
-**How do I report a problem with an image?**
-Open an issue in this repository, or contact KINGAI via https://kingai.work/contact/.
+## What ships in the preview?
 
-Releases here are public binaries/checksums only. Source authority, signing secrets, build infrastructure and operational credentials are not published here.
+Per the [published release notes](https://github.com/kingaiwork/KINGAI-OS-Releases/releases/tag/v0.1.0-dev):
+
+- Desktop amd64: KDE Plasma environment, common apps and development tools.
+- Server amd64: minimal server base, OpenSSH, Podman, cloud-init, Fail2ban and Chrony.
+- Both: matching SHA-256 sidecars, with public read-only integrity checks.
+
+*Actual installer behavior, upstream distro identity, hardware compatibility and full build provenance cannot be established from this release-only repository; use a virtual machine and treat features beyond release notes as unverified.*
+
+## Trust, privacy and release policy
+
+- This is a **public distribution and documentation repository**, not the private source-of-truth build environment, signing key store or operational control plane.
+- Public CI validates release metadata, asset URL form, sidecar size and checksum consistency. It does **not** download and boot multi-GB ISOs or certify security.
+- No claims of mandatory cloud login, hidden telemetry, always-on AI, secure boot certification or production SLA.
+- Planned Edge/AI Workstation features stay visibly labeled **planned** until real images and test evidence are published.
+- Security reports: read [SECURITY.md](SECURITY.md) and disclose vulnerabilities privately.
+
+## Architecture, commercial use & development roadmap
+
+- [Four editions & feature status](docs/PRODUCT_FAMILY.md)
+- [Install, verify and recovery](docs/INSTALLATION.md)
+- [Build, supply-chain, updates, QA and commercial release gates](docs/RELEASE_ENGINEERING.md)
+- [SEO / AI search discoverability publishing policy](docs/DISCOVERABILITY.md)
+- [Product catalog for websites and automated assistants](catalog/product-family.json)
+
+Future work includes reproducible image recipes, signed releases, SPDX/CycloneDX SBOM, hardened system update flows, virtual hardware CI, validated arm64/edge hardware and optional AI sandbox tooling. **Roadmap items are not currently shipped features.** Commercialization requires upstream software-license compliance, security updates, support policies, and tested hardware compatibility.
+
+## Frequently asked questions · 常见问题
+
+**Is KINGAI OS free? / 是否免费下载？**  
+The current public **developer preview images** are downloadable without a KINGAI subscription. Third-party package and license obligations still apply. Future enterprise services may be priced separately when available.
+
+**Can it replace my production Linux server? / 现在适合生产服务器吗？**  
+Not yet certified. The current release is v0.1.0-dev. Test in a VM and follow your own backup and rollback practices.
+
+**Does it bundle a local LLM, agents or cloud accounts? / 自带大模型或智能体吗？**  
+No KINGAI model, mandatory account or agent product is bundled in the published preview description. Optional AI integration is a future enhancement.
+
+**Where are ARM64, Edge and AI Workstation installers? / 新版镜像哪里下载？**  
+They have **not** been released. Do not trust third-party pages offering alleged official downloads.
+
+**Can businesses build on it? / 企业可商用吗？**  
+Usage and redistribution require checking the licenses for the full distribution and individual bundled components. This repository's MIT LICENSE does not relicense the Linux kernel or other upstream packages. No production support SLA is implied.
+
+## Official links & contact
+
+- **Official OS product website:** https://os.kingai.work/
+- **Product family / KINGAI.WORK:** https://kingai.work/
+- **Releases:** https://github.com/kingaiwork/KINGAI-OS-Releases/releases
+- **Support/contact:** https://kingai.work/contact/
+- **Security disclosure:** see [SECURITY.md](SECURITY.md)
+
+© KINGAI OS contributors. Repository-side software is MIT-licensed where applicable; distribution components retain their own licenses.
