@@ -4,7 +4,7 @@
 
 ## 1. 从可信来源获取
 
-- 官方信息：https://os.kingai.work/
+- 官方信息：https://kingai.work/os/
 - GitHub 发布：https://github.com/kingaiwork/KINGAI-OS-Releases/releases/tag/v0.1.0-dev
 - Desktop: `KINGAI-OS-Desktop-0.1.0-dev-amd64.iso`
 - Server: `KINGAI-OS-Server-0.1.0-dev-amd64.iso`
