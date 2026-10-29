@@ -21,7 +21,7 @@ The sidecars beside the two published ISO assets are the only release-scoped off
 
 A later set of **four actual Debian 13 AMD64 experimental ISOs** was successfully compiled and hashed on disposable, hosted CI runners. These images were ephemeral. They are **not** the October 6 `v0.1.0-dev` public assets, nor were the new images archived as publicly retrievable downloads.
 
-Server and Edge separately passed **QEMU BIOS and UEFI live-system** startup into systemd. Desktop also passed BIOS and UEFI live boot in the corrected test matrix; AI Workstation's UEFI proof is handled in an independent remaining test. These are measurements of test-only instrumented ISO boots, not user-facing installer, GPU, real-hardware, or published-old-image validation.
+All four experimental AMD64 editions — Desktop, Server, Edge, and AI Workstation — separately passed **QEMU BIOS and UEFI live-system** startup into systemd in isolated, test-only CI, including the latest independent three-edition test matrix. These measurements prove test-only instrumented ISO boots, **not** full GUI login, installed-disk reboot, GPU support, real-hardware compatibility, or validation of the older public v0.1.0-dev images.
 
 An unattended Server installation into a disposable QCOW2 progressed through partition creation, base-system installation and GRUB, but exceeded its initial installer timeout before a **verified installed-disk reboot**. A corrected, extended-timing test is being run separately. Until there is an actual clean installation followed by a disk-only reboot, **installation certification remains BLOCKED**. The old downloadable v0.1.0-dev assets have not been proven equivalent to the new test ISOs.
 
