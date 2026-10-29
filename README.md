@@ -2,7 +2,7 @@
 
 **中文 / English** · General-purpose Linux · User-controlled · Optional local AI workloads · No mandatory KINGAI account
 
-[Official website](https://os.kingai.work/) · [Download developer previews](https://github.com/kingaiwork/KINGAI-OS-Releases/releases) · [Four-edition product family](docs/PRODUCT_FAMILY.md) · [Install & verify](docs/INSTALLATION.md) · [Security](SECURITY.md)
+[Official website](https://kingai.work/os/) · [Download developer previews](https://github.com/kingaiwork/KINGAI-OS-Releases/releases) · [Four-edition product family](docs/PRODUCT_FAMILY.md) · [Install & verify](docs/INSTALLATION.md) · [Security](SECURITY.md)
 
 > **Release status · 2026-10-29:** Only **KINGAI OS Desktop** and **KINGAI OS Server** currently have official downloadable images: **v0.1.0-dev (amd64, Developer Preview)**. **KINGAI OS Edge** and **KINGAI OS AI Workstation** are product roadmaps and **have no published ISO**. No edition is certified as generally available or production-ready.
 
@@ -95,7 +95,7 @@ Usage and redistribution require checking the licenses for the full distribution
 
 ## Official links & contact
 
-- **Official OS product website:** https://os.kingai.work/
+- **Official OS product website:** https://kingai.work/os/
 - **Product family / KINGAI.WORK:** https://kingai.work/
 - **Publisher / 发布方：** KINGAI，由在美华人创办、AI 智能驱动的未来科技公司 · [kingai.work](https://kingai.work) · [GitHub 主页](https://github.com/kingaiwork)
 - **Releases:** https://github.com/kingaiwork/KINGAI-OS-Releases/releases
