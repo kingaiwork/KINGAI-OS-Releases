@@ -97,6 +97,7 @@ Usage and redistribution require checking the licenses for the full distribution
 
 - **Official OS product website:** https://os.kingai.work/
 - **Product family / KINGAI.WORK:** https://kingai.work/
+- **Publisher / 发布方：** KINGAI，由在美华人创办、AI 智能驱动的未来科技公司 · [kingai.work](https://kingai.work) · [GitHub 主页](https://github.com/kingaiwork)
 - **Releases:** https://github.com/kingaiwork/KINGAI-OS-Releases/releases
 - **Support/contact:** https://kingai.work/contact/
 - **Security disclosure:** see [SECURITY.md](SECURITY.md)
