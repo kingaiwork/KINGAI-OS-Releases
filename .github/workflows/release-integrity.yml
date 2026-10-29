@@ -58,6 +58,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: node scripts/verify-ga-no-unauthorized-release.mjs
+      - name: Report four-edition public artifact readiness (never certify GA)
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          KINGAI_RELEASE_TAG: ${{ github.event.release.tag_name || 'v0.1.0-dev' }}
+        run: node scripts/audit-four-edition-assets.mjs
       - name: Ensure edition catalog matches latest real published prerelease
         env:
           GITHUB_TOKEN: ${{ github.token }}
