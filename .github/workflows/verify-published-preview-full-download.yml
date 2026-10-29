@@ -1,0 +1,96 @@
+name: KINGAI OS REAL public preview ISO full-byte download and integrity smoke
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/verify-published-preview-full-download.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kingai-os-published-iso-full-download
+  cancel-in-progress: true
+
+jobs:
+  download-verify-real-iso:
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository }}
+    strategy:
+      fail-fast: false
+      matrix:
+        edition: [desktop, server]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      EDITION: ${{ matrix.edition }}
+    steps:
+      - name: Checkout release catalog with no persisted credentials
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Ensure disposable GitHub-hosted runner and enough download scratch
+        run: |
+          test "$RUNNER_ENVIRONMENT" = github-hosted
+          test "$GITHUB_ACTIONS" = true
+          avail="$(df -Pk . | awk 'END {print $4}')"
+          if (( avail < 6 * 1024 * 1024 )); then
+            echo "BLOCKED: insufficient storage for actual full ISO download and structure check"
+            exit 73
+          fi
+          df -h .
+      - name: Parse exact published public filename, asset URL and recorded digest
+        id: iso
+        run: |
+          python3 - "$EDITION" <<'PY' >> "$GITHUB_OUTPUT"
+          import json,re,sys
+          id=sys.argv[1]
+          catalog=json.load(open("catalog/product-family.json"))
+          edition=next(x for x in catalog["editions"] if x["id"]==id)
+          assert edition["releaseStatus"]=="developer-preview"
+          assert edition["version"]=="0.1.0-dev"
+          assert edition["architecture"]==["amd64"]
+          name=edition["image"]
+          url=edition["download"]
+          assert re.fullmatch(r"KINGAI-OS-(Desktop|Server)-0[.]1[.]0-dev-amd64[.]iso",name)
+          assert url=="https://github.com/kingaiwork/KINGAI-OS-Releases/releases/download/v0.1.0-dev/"+name
+          assert re.fullmatch("[0-9a-f]{64}",edition["sha256"])
+          for key,value in (("image",name),("url",url),("sha",edition["sha256"])):
+              print(key+"="+value)
+          PY
+      - name: Download exact currently published multi-GB ISO plus its SHA256 companion
+        env:
+          URL: ${{ steps.iso.outputs.url }}
+          NAME: ${{ steps.iso.outputs.image }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/kingai-download"
+          cd "$RUNNER_TEMP/kingai-download"
+          curl --fail --location --silent --show-error --retry 2 --retry-delay 4 \
+            --connect-timeout 30 --max-time 2400 "$URL" -o "$NAME"
+          curl --fail --location --silent --show-error --retry 2 --retry-delay 4 \
+            --connect-timeout 30 --max-time 90 "$URL.sha256" -o "$NAME.sha256"
+          test -s "$NAME"
+          test -s "$NAME.sha256"
+      - name: Independently hash full downloaded ISO and validate actual ISO filesystem
+        env:
+          NAME: ${{ steps.iso.outputs.image }}
+          EXPECTED_SHA: ${{ steps.iso.outputs.sha }}
+        run: |
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends xorriso
+          cd "$RUNNER_TEMP/kingai-download"
+          sha256sum -c "$NAME.sha256"
+          actual="$(sha256sum "$NAME" | awk '{print $1}')"
+          test "$actual" = "$EXPECTED_SHA"
+          bytes="$(stat -c %s "$NAME")"
+          test "$bytes" -ge 100000000
+          xorriso -indev "$NAME" -toc >/dev/null
+          echo "PASS: full public $EDITION ISO retrieved, $bytes actual bytes, SHA256=$actual; ISO filesystem readable"
+      - name: Preserve precise limits; delete all downloaded bytes with disposable runner
+        if: always()
+        run: |
+          {
+            echo "## Actual full-byte GitHub Release preview download verification ($EDITION)"
+            echo 'This workflow downloads the entire older v0.1.0-dev published ISO, verifies its published sidecar, computes full SHA256 and checks ISO format.'
+            echo 'It DOES NOT claim successful live boot, disk installation, real hardware, firmware, security, upgrades, rollback or GA authorization.'
+            echo 'No new ISO release, public link, production mail VPS change or artifact upload is performed.'
+          } >> "$GITHUB_STEP_SUMMARY"
