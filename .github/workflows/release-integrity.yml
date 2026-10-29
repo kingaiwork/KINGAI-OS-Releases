@@ -1,13 +1,24 @@
-name: KINGAI OS Release Integrity
+name: KINGAI OS Release Integrity & Product Metadata
 on:
   release:
     types: [published, edited]
   workflow_dispatch:
+  pull_request:
+    paths:
+      - 'README.md'
+      - 'docs/**'
+      - 'catalog/**'
+      - 'scripts/**'
+      - 'tests/**'
+      - '.github/workflows/release-integrity.yml'
   push:
     branches: [main]
     paths:
-      - 'scripts/verify-release.mjs'
-      - 'tests/release.test.mjs'
+      - 'README.md'
+      - 'docs/**'
+      - 'catalog/**'
+      - 'scripts/**'
+      - 'tests/**'
       - '.github/workflows/release-integrity.yml'
   schedule:
     - cron: '13 9 * * 1'
@@ -24,17 +35,17 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
-      - name: Checkout immutable action
+      - name: Checkout pinned action
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           persist-credentials: false
-      - name: Set up supported Node
+      - name: Set up Node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: '22'
-      - name: Test release invariants without external resources
-        run: node --test tests/release.test.mjs
-      - name: Validate published release and bounded SHA-256 sidecars
+      - name: Test metadata, release and unsafe inputs without external resources
+        run: node --test tests/*.test.mjs
+      - name: Validate published release metadata and bounded SHA-256 sidecars
         env:
           GITHUB_TOKEN: ${{ github.token }}
           KINGAI_RELEASE_TAG: ${{ github.event.release.tag_name }}
