@@ -103,3 +103,9 @@ Usage and redistribution require checking the licenses for the full distribution
 - **Security disclosure:** see [SECURITY.md](SECURITY.md)
 
 © KINGAI OS contributors. Repository-side software is MIT-licensed where applicable; distribution components retain their own licenses.
+
+## Company and privacy · 公司与隐私
+
+**KINGAI OS** is a KINGAI product currently maintained under the **KINGAIWORK LLC** corporate brand. KINGAIWORK LLC is a Wyoming-registered US limited liability company (formed November 1, 2026; Entity ID 2026-002120886). Corporate inquiries: vip@kingai.work · https://kingai.work. See the [company profile](https://github.com/kingaiwork/kingaiwork) for registration facts.
+
+The product's existing release readiness statements above remain authoritative: a corporate identity update is **not** a new ISO release, hardware certification or production GA announcement. Public repository documentation must not disclose personal names, personal contact details, residential addresses, internal build credentials, customer data or commercial contract values. Copyright and license rights remain subject to their applicable terms.
