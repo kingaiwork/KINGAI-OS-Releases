@@ -109,3 +109,10 @@ Usage and redistribution require checking the licenses for the full distribution
 **KINGAI OS** is a KINGAI product currently maintained under the **KINGAIWORK LLC** corporate brand. KINGAIWORK LLC is a company registered in the United States. Corporate inquiries: vip@kingai.work · https://kingai.work. For more company information, visit https://kingai.work.
 
 The product's existing release readiness statements above remain authoritative: a corporate identity update is **not** a new ISO release, hardware certification or production GA announcement. Public repository documentation must not disclose personal names, personal contact details, residential addresses, internal build credentials, customer data or commercial contract values. Copyright and license rights remain subject to their applicable terms.
+
+---
+
+**KINGAIWORK LLC** — the company behind this project.
+Legal name: KINGAIWORK LLC · Formed in Wyoming, USA on November 1, 2026 · Wyoming Entity ID: 2026-002120886
+Registered address: 30 N Gould St Ste R, Sheridan, WY 82801, USA
+Website: https://kingai.work · Contact: vip@kingai.work
